@@ -147,6 +147,9 @@
                     </span>
                     <div class="tags text-center">
                         
+                        <a class="tag" href="/tags/#Gradle"
+                           title="Gradle">Gradle</a>
+                        
                     </div>
                 </div>
             </div>
@@ -165,7 +168,39 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h3 id="Gradle是什么？"><a href="#Gradle是什么？" class="headerlink" title="Gradle是什么？"></a>Gradle是什么？</h3><p>在语法上的基于Groovy语言的（Groovy是一种基于JVM的敏捷开发语言，可以简单的理解为强类型语言Java的弱类型版本），在项目管理上是基于Ant和Maven概念的项目自启动化构建工具。</p>
+                <h3 id="Gradle是什么？"><a href="#Gradle是什么？" class="headerlink" title="Gradle是什么？"></a>Gradle是什么？</h3><p>在语法上的基于Groovy语言的，在项目管理上是基于Ant和Maven概念的项目自启动化构建工具。</p>
+<p>Gradle不单单是一个配置脚本，它的背后是几门语言。</p>
+<ul>
+<li>Groovy Language</li>
+<li>Gradle DSL</li>
+<li>Android DSL</li>
+</ul>
+<p>DSL的全称是Domin Specific Language，即领域特定语言；</p>
+<h4 id="Groovy和Java的关系："><a href="#Groovy和Java的关系：" class="headerlink" title="Groovy和Java的关系："></a>Groovy和Java的关系：</h4><p>Groovy是一门jvm语言，它最终是要编译成class文件然后在jvm上执行，所以Java语言的特性Groovy都支持，也就是说完全可以混写Java和Groovy；</p>
+<h4 id="Groovy的变量和方法声明："><a href="#Groovy的变量和方法声明：" class="headerlink" title="Groovy的变量和方法声明："></a>Groovy的变量和方法声明：</h4><figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">def</span> b = <span class="string">"hello world"</span>;</span><br><span class="line"><span class="keyword">def</span> <span class="keyword">int</span> c = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> hello()&#123;</span><br><span class="line">    println (<span class="string">"hello world"</span>);</span><br><span class="line">    retrun <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在Groovy中，有许多地方都是可以省略的，比如：</p>
+<ul>
+<li>语句后面的分号是可以省略</li>
+<li>变量的类型和方法的返回值是可以省略</li>
+<li>方法调用时，括号是可以省略的</li>
+<li>语句中的return也是可以省略的</li>
+</ul>
+<p>所有上面的代码也可以省略成如下的形式：</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> a = <span class="number">1</span></span><br><span class="line"><span class="keyword">def</span> b = <span class="string">"hello world"</span></span><br><span class="line"><span class="keyword">def</span> <span class="keyword">int</span> c = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> hello()&#123;</span><br><span class="line">    println <span class="string">"hello world"</span> <span class="comment">// 方法调用省略括号</span></span><br><span class="line">    <span class="number">1</span>;                    <span class="comment">// 方法返回值省略return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> hello(String msg)&#123;</span><br><span class="line">    println(msg)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//方法省略参数类型</span></span><br><span class="line"><span class="keyword">int</span> hello(msg)&#123;</span><br><span class="line">    println(msg)</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 方法省略参数类型</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> hello(msg) &#123;</span><br><span class="line">    println msg</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> <span class="comment">// 这个return不能省略</span></span><br><span class="line">    println <span class="string">"done"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Groovy的数据类型"><a href="#Groovy的数据类型" class="headerlink" title="Groovy的数据类型"></a>Groovy的数据类型</h4><p>在Groovy中，数据类型有：</p>
+<ul>
+<li>java中的基本数据类型</li>
+<li>java中的对象</li>
+<li>Closure（闭包）</li>
+<li>加强的List,Map等集合类型</li>
+<li>加强的File,Stream等IO类型</li>
+</ul>
+<p>其他的数据类型就先不多说了，下面重点说下闭包。</p>
+<p>Groovy中有一种特殊的类型，叫做Closure，也就是闭包，这是一种类似于C语言中的函数指针的东西。在Groovy中，闭包作为一种特殊的数据类型而存在，闭包可以作为方法的参数和返回值，也可以作为一个变量而存在。</p>
+<p>声明闭包：</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">&#123; parameters -&gt;</span><br><span class="line">    code</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>闭包可以有返回值和参数，当然也可以没有：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def closure = &#123; int a, String b -&gt;</span><br><span class="line">    println &quot;a=$&#123;a&#125;, b=$&#123;b&#125;, I am a closure!&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 这里省略了闭包的参数类型</span><br><span class="line">def test = &#123; a, b -&gt;</span><br><span class="line">    println &quot;a=$&#123;a&#125;, b=$&#123;b&#125;, I am a closure!&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">def ryg = &#123; a, b -&gt;</span><br><span class="line">    a + b</span><br><span class="line">&#125;</span><br><span class="line">closure(100, &quot;renyugang&quot;)</span><br><span class="line">test.call(100, 200)</span><br><span class="line">def c = ryg(100,200)</span><br><span class="line">println c</span><br></pre></td></tr></table></figure>
 <p>###搭建Gradle运行环境</p>
 <p>1，Gradle运行依赖JVM，也就是Java运行环境，要求JDK版本1.6以上；</p>
 <p>2，Gradle运行的压缩包；</p>
@@ -199,7 +234,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Gradle是什么？"><span class="toc-text">Gradle是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gradle的配置语法"><span class="toc-text">Gradle的配置语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gradle的编译周期"><span class="toc-text">Gradle的编译周期</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Gradle是什么？"><span class="toc-text">Gradle是什么？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Groovy和Java的关系："><span class="toc-text">Groovy和Java的关系：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Groovy的变量和方法声明："><span class="toc-text">Groovy的变量和方法声明：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Groovy的数据类型"><span class="toc-text">Groovy的数据类型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gradle的配置语法"><span class="toc-text">Gradle的配置语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gradle的编译周期"><span class="toc-text">Gradle的编译周期</span></a></li></ol>
                 </div>
             </div>
         </div>
@@ -220,6 +255,9 @@
                         <a href="/tags/">FEATURED TAGS</a>
                     </h5>
                     <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Gradle"
+                           title="Gradle">Gradle</a>
                         
                     </div>
                 </section>
